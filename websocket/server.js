@@ -1,6 +1,8 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
 
+const Message = require('../model/MessageModel')
+
 var clients = {};
 
 io.on('connection', function(client){
@@ -12,7 +14,13 @@ io.on('connection', function(client){
     });
 
     client.on("send", function(msg){
-        console.log("Message: " + msg);
+        console.log(msg);return;
+
+        Message.create(msg, (err, message) => {
+            if (err) res.send(err)
+            res.status(200).send(message)
+        })
+
         client.broadcast.emit("chat", clients[client.id], msg);
     });
 

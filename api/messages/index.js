@@ -1,13 +1,10 @@
 const express = require('express')
-const Message = require('./model')
+const Message = require('../../model/MessageModel')
 
 const router = express.Router()
 
 router.post('/', (req, res) => {
-  Message.create(req.body.message, (err, message) => {
-    if (err) res.send(err)
-    res.status(200).send(message)
-  })
+
 })
 
 router.get('/:chat/:page', (req, res) => {
