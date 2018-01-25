@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dontalk</title>
+  <link href="/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.0/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.1/vue-resource.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <template v-if="chat">
+      <div id="messages">
+        <p v-for="message in messages">
+          <b>{{ message.timestamp | moment }} - {{ message.author }}:</b> {{ message.content }}
+        </p>
+      </div>
+      <div id="pagination">
+        <span v-for="page in pages">
+          <a href="#" @click="getMessages(page)">{{ page }}</a> &nbsp;
+        </span>
+      </div>
+      <div id="interaction">
+        <input class="author" type="text" v-model="newMessage.author" @blur="saveUser()" @keyup.enter="postMessage()"> $
+        <input class="user-input" type="text" autofocus placeholder="Write a message and hit enter" v-model="newMessage.content" @keyup.enter="postMessage()">
+      </div>
+    </template>
+    <template v-else>
+      <div id="interaction">
+        <input class="author" type="text" v-model="newMessage.author" @blur="saveUser()"> $
+        <input class="user-input" type="text" autofocus placeholder="Type here the title of the chat you want to join" v-model="chatToJoin" @keyup.enter="joinChat()">
+      </div>
+    </template>
+  </div>
+  <script src="/chat.js"></script>
+</body>
+</html>
