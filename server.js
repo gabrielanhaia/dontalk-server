@@ -3,6 +3,7 @@ const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const MessageController = require('./api/messages')
+const socketServer = require('./websocket/server.js')
 
 const app = express()
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost/dontalk'
@@ -16,5 +17,5 @@ app.use('/api/messages', MessageController)
 app.use(express.static("public"))
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`)
+  console.log(`API running on port ${port}`)
 })
