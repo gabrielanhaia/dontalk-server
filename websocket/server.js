@@ -14,11 +14,9 @@ io.on('connection', function(client){
     });
 
     client.on("send", function(msg){
-        console.log(msg);return;
-
+        console.log(msg);
         Message.create(msg, (err, message) => {
-            if (err) res.send(err)
-            res.status(200).send(message)
+            // TODO: Implement Error.
         })
 
         client.broadcast.emit("chat", clients[client.id], msg);
