@@ -10,7 +10,7 @@ io.on('connection', function(client){
         console.log("Joined: " + name);
         clients[client.id] = name;
         client.emit("update", "You have connected to the server.");
-        client.broadcast.emit("update", name + " has joined the server.")
+        client.broadcast.emit("update", name + " has joined the chat.")
     });
 
     client.on("send", function(msg){
@@ -24,7 +24,7 @@ io.on('connection', function(client){
 
     client.on("disconnect", function(){
         console.log("Disconnect");
-        io.emit("update", clients[client.id] + " has left the server.");
+        io.emit("update", clients[client.id] + " has left the chat.");
         delete clients[client.id];
     });
 });
